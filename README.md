@@ -44,6 +44,7 @@ Here you can see how I instantiate different objects
         }
     }
 ```
+![bild](https://github.com/user-attachments/assets/3845eec7-41e4-4805-8575-519d05b802c9)
 
 After I instantiate objects I called this function with a coroutine to create new families. 
 
@@ -154,6 +155,11 @@ After I instantiate objects I called this function with a coroutine to create ne
     }
 
 ```
+![GIF 2024-10-16 23-11-01](https://github.com/user-attachments/assets/c05ceab1-dc78-4250-89e4-5621eb63eb22)
+![ezgif-5-5c6ea06dba](https://github.com/user-attachments/assets/77f5eecd-c917-479b-8c7e-49cccea4a0b4)
+
+
+
 ## Kids and parents
 The goal for the kid and parent was simple. At kiosk place kid will go for his ice cream. When he get his order right, he wait for his sibling to be done and leave with parent. 
 I thought enum was the perfect system for this so I made a enum system with get and set. 
@@ -262,5 +268,37 @@ public void CheckIfAllKidsAreDone()
 
 ```
 ## KidType and ParentType
-My whole syste
+My whole kid and parent system was with cubes and spheres. When I first got the prefab skeleton characters, I thought maybe I could just sweep the current prefab to the new ones but I noticed fast that it was a bad idea. Instead I decided to instantiate all kid characters into a object pool and from there pick up characters and set them "kid" to the kids. 
+
+Here for the first time I used dictionaries. After instantiate them and put them into list I set them up with dictioneries. I randomize the cracters and return a character and the enum for it. That is because I use that data to reset it later. 
+
+ 
+```csharp
+        public KidSelect GetKidRandom()
+{
+    int enumIntValue = System.Enum.GetValues(typeof(KidSelect)).Length;
+
+    int randomIndex = UnityEngine.Random.Range(0, enumIntValue);
+    return kidSelect = (KidSelect)randomIndex;
+}
+
+public (GameObject, KidSelect) GetGameObject()
+{
+
+    kidSelect = GetKidRandom();
+
+    while (kidDictionary[kidSelect].Count == 0)
+    {
+        kidSelect = GetKidRandom();
+    }
+    GameObject kidType = kidDictionary[kidSelect][0];
+
+    if (kidDictionary[kidSelect].Count > 0)
+    {
+        kidDictionary[kidSelect].RemoveAt(0);
+    }
+
+    return (kidType, kidSelect);
+}
+```
 
