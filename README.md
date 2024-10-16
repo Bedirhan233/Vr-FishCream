@@ -153,9 +153,114 @@ After I instantiate objects I called this function with a coroutine to create ne
 
     }
 
+```
 ## Kids and parents
-The behaviour of the kid was simple. At kiosk place he will go for his ice cream. When he get his order right, he wait for his sibling to be done and leave. 
+The goal for the kid and parent was simple. At kiosk place kid will go for his ice cream. When he get his order right, he wait for his sibling to be done and leave with parent. 
 I thought enum was the perfect system for this so I made a enum system with get and set. 
 
+```csharp
+public KidStates kidState
+{
+    get { return kidStates_; }
+
+    set
+    {
+        if (kidStates_ != value)
+        {
+            kidStates_ = value;
+
+            StopAllCoroutines();    
+
+            NewFamilyMovement tmpFamily = GetComponentInParent<NewFamilyMovement>();
+            switch (kidStates_)
+            {
+                case KidStates.defaultState:
+                    animationController.IdleAnimation();
+                    break;
+
+                case KidStates.FollowingParent:
+                    StartCoroutine(CallAnim(animationController => animationController.WalkAnimation()));
+                    break;
+
+                case KidStates.GoingToWaitingPos:
+                    StartCoroutine(MoveAndRotateCoroutine());
+                    FixRotationAndPositionForKidType();
+
+                    break;
+
+                case KidStates.WaitingIceCream:
+                    order.GenerateOrder();
+                    animationController.IdleAnimation();
+                    FixRotationAndPositionForKidType();
+
+                    break;
+
+                case KidStates.GettingKidnaped:
+                    KidIsInTheForest();
+                    break;
+
+                case KidStates.GotIceCream:
+                    ReceiveOrder();
+                    animationController.HappyAnimation();
+                    OnIceCreamDone.Invoke();
+                    pointHandler.ServeIceCream();
+                    break;
+
+                case KidStates.GoingToLeavingPos:
+                    StartCoroutine(MoveToEnd(leavingPos));
+
+                    break;
+
+                case KidStates.InTheBag:
+                    GetInToBag();
+
+                    break;
+
+
+                case KidStates.Leaving:
+                    animationController.WalkAnimation();
+                    DoneKid.Invoke();
+                    order.ResetIceCreamOrder();
+
+                    break;
+
+            }
+        }
+
+    }
+}
+```
+When a kid is statisfied I get a bool that is true and I check in the FamilyMovement script that if the other kid is true too if not I dont do anything else I set them to done. 
+
+```csharp
+    public void KidIsDone()
+{
+    CheckIfAllKidsAreDone();
+    if(allKidsAreDone)
+    {
+        OnKidsAreDone.Invoke();
+        FollowingInLineSystem();
+        iceCreamKiosk.isBusy = false;
+        CheckIfFamilyIsDone();
+        pointHandler.SatisfiedCompany();
+    }
+}
+
+public void CheckIfAllKidsAreDone()
+{
+    List<Kid> memberlist = new List<Kid>();
+    foreach (GameObject kids in membersInList)
+    {
+        if (kids.gameObject.CompareTag(kidTag))
+        {
+            Kid tmpKid = kids.GetComponent<Kid>();
+            memberlist.Add(tmpKid);
+        }
+    }
+    allKidsAreDone = memberlist.TrueForAll(kid => kid.kidIsDone);
+}
 
 ```
+## KidType and ParentType
+My whole syste
+
