@@ -2,6 +2,13 @@
 
 Hello! In our vr project we decided to make a chaotic comedy game. The game concept is simple. You are a ice cream seller and you hit the kids when the parents look away and in same time where is a pervert that tries to kidnap the kids. 
 
+I dont have any screenrecordings from Vr but here is some footage from unity.
+
+![ezgif-5-2078f447c6](https://github.com/user-attachments/assets/70aa4ed5-8c78-40ce-8221-2986457ac7c0)
+![bild](https://github.com/user-attachments/assets/8240897d-3574-4725-b893-cf806e290599)
+
+
+
 ## Parent and Kids
 Before I tell you my area I just want to mention that I wanted to have a challenge for myself, to no use update in the project. I really wanted to learn the event system and coroutines, it was challenging but fun. My area of responsibility was the family system, kids and parent. I wanted to make a object pool for the whole system. Instantiate kids, parent and empty family objects first, then systematicly put the kids and parents under empty family objetcs. 
 
@@ -162,6 +169,10 @@ After I instantiate objects I called this function with a coroutine to create ne
 
 ## Kids and parents
 The goal for the kid and parent was simple. At kiosk place kid will go for his ice cream. When he get his order right, he wait for his sibling to be done and leave with parent. 
+
+![ezgif-5-4d61519bed](https://github.com/user-attachments/assets/534b9ed6-c320-4c4b-bdc6-c82e22f44633)
+
+
 I thought enum was the perfect system for this so I made a enum system with get and set. 
 
 ```csharp
@@ -301,4 +312,4 @@ public (GameObject, KidSelect) GetGameObject()
     return (kidType, kidSelect);
 }
 ```
-
+Thank you for reading. From this project I learned dictioneries, complex list systems, more about get and set, coroutines and hot to use bools effieciently.
