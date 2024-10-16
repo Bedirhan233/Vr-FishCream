@@ -1,8 +1,8 @@
 # Vr-FishCream
 
-Hello! In our vr project we decided to make a chaotic comedy game. The game concept is simple. You are a ice cream seller and you hit the kids when the parents look away and in same time where is a pervert that tries to kidnap the kids. 
+Hello! In our VR project, we've decided to create a chaotic comedy game. The concept is simple: you play as an ice cream seller who hits the kids when their parents look away, all while a pervert is trying to kidnap them.
 
-I dont have any screenrecordings from Vr but here is some footage from unity.
+I don’t have any screen recordings from VR, but here is some footage from Unity.
 
 ![ezgif-5-2078f447c6](https://github.com/user-attachments/assets/70aa4ed5-8c78-40ce-8221-2986457ac7c0)
 ![bild](https://github.com/user-attachments/assets/8240897d-3574-4725-b893-cf806e290599)
@@ -10,9 +10,9 @@ I dont have any screenrecordings from Vr but here is some footage from unity.
 
 
 ## Parent and Kids
-Before I tell you my area I just want to mention that I wanted to have a challenge for myself, to no use update in the project. I really wanted to learn the event system and coroutines, it was challenging but fun. My area of responsibility was the family system, kids and parent. I wanted to make a object pool for the whole system. Instantiate kids, parent and empty family objects first, then systematicly put the kids and parents under empty family objetcs. 
+Before I tell you about my area, I just want to mention that I wanted to challenge myself by not using the Update method in this project. I really wanted to learn the event system and coroutines—it was challenging but fun. My area of responsibility was the family system, including the kids and parents. I wanted to create an object pool for the whole system, instantiate the kids, parents, and empty family objects first, and then systematically assign the kids and parents to the empty family objects.
 
-When the family was ready to go, I made 3 point for them. Point A where they start to go from and move towards point B, which is the kiosk. Because I wanted to create a asyrncous system I used coroutines.Then I move those families to the kiosk staation with coroutines and let the members of the family do their things then leave and go to point C where they resets. 
+Once the family was ready, I set up three points for them: Point A, where they start, moving towards Point B, which is the kiosk. Since I wanted to create an asynchronous system, I used coroutines. I then moved those families to the kiosk station with coroutines, letting the members of the family do their tasks, then leave and go to Point C, where they reset.
 
 Here you can see how I instantiate different objects
 
@@ -53,7 +53,7 @@ Here you can see how I instantiate different objects
 ```
 ![bild](https://github.com/user-attachments/assets/3845eec7-41e4-4805-8575-519d05b802c9)
 
-After I instantiate objects I called this function with a coroutine to create new families. 
+After instantiating the objects, I called this function using a coroutine to create new families.
 
 ```csharp
     public void CreateFamily()
@@ -168,12 +168,13 @@ After I instantiate objects I called this function with a coroutine to create ne
 
 
 ## Kids and parents
-The goal for the kid and parent was simple. At kiosk place kid will go for his ice cream. When he get his order right, he wait for his sibling to be done and leave with parent. 
+The goal for the kid and parent was simple. At the kiosk, the kid would go get his ice cream. Once he got his order right, he would wait for his sibling to finish and then leave with the parent.
+
 
 ![ezgif-5-4d61519bed](https://github.com/user-attachments/assets/534b9ed6-c320-4c4b-bdc6-c82e22f44633)
 
 
-I thought enum was the perfect system for this so I made a enum system with get and set. 
+I thought an enum was the perfect solution for this, so I created an enum system with getters and setters.
 
 ```csharp
 public KidStates kidState
@@ -247,7 +248,7 @@ public KidStates kidState
     }
 }
 ```
-When a kid is statisfied I get a bool that is true and I check in the FamilyMovement script that if the other kid is true too if not I dont do anything else I set them to done. 
+When a kid is satisfied, I get a boolean value that is true. In the FamilyMovement script, I check if the other kid is also true. If not, I don't do anything, but if both are true, I mark them as done.
 
 ```csharp
     public void KidIsDone()
@@ -279,9 +280,9 @@ public void CheckIfAllKidsAreDone()
 
 ```
 ## KidType and ParentType
-My whole kid and parent system was with cubes and spheres. When I first got the prefab skeleton characters, I thought maybe I could just sweep the current prefab to the new ones but I noticed fast that it was a bad idea. Instead I decided to instantiate all kid characters into a object pool and from there pick up characters and set them "kid" to the kids. 
+My entire kid and parent system initially used cubes and spheres. When I first got the skeleton character prefabs, I thought I could simply swap the current prefabs with the new ones, but I quickly realized it wasn't a good idea. Instead, I decided to instantiate all kid characters into an object pool and, from there, pick up characters and assign them to the "kid" objects.
 
-Here for the first time I used dictionaries. After instantiate them and put them into list I set them up with dictioneries. I randomize the cracters and return a character and the enum for it. That is because I use that data to reset it later. 
+This was the first time I used dictionaries. After instantiating them and adding them to a list, I set them up using dictionaries. I randomized the characters and returned a character along with its enum. This was so I could use that data to reset it later.
 
  
 ```csharp
@@ -312,4 +313,4 @@ public (GameObject, KidSelect) GetGameObject()
     return (kidType, kidSelect);
 }
 ```
-Thank you for reading. From this project I learned dictioneries, complex list systems, more about get and set, coroutines and hot to use bools effieciently.
+Thank you for reading. From this project, I learned about dictionaries, complex list systems, getters and setters, coroutines, and how to use booleans efficiently.
